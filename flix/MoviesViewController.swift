@@ -34,9 +34,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             self.movies = dataDictionary["results"] as! [[String:Any]]  // casting. Download the list of movies from the api and store it in self.movies list
             self.tableView.reloadData()
-              // TODO: Get the array of movies
-              // TODO: Store the movies in a property to use elsewhere
-              // TODO: Reload your table view data
 
            }
         }
@@ -71,15 +68,21 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // 1. Find selected movie (how do we know which one was chosen)
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        // 2. Pass the selected movie to the view
+        let detailViewController = segue.destination as! MovieDetailsViewController
+        detailViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
+
 
 }
